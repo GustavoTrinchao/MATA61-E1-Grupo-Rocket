@@ -123,7 +123,7 @@ Arquivos:
 - ./E1-parte1/README.md, com nomes dos membros da equipe (primeiras linhas, como comentário e orientações para compilar, executar e testar seu código.
 - ./E1-parte1/makefile, com opções 'compile' e 'test'
 - ./E1-parte1/<arquivos com código fonte>
-- Pasta ./E1-parte1/'tests', contendo testes I/O para os cenários indicados em \tests\cenarios.md
+- Pasta ./E1-parte1/'tests', contendo seus testes I/O para os cenários indicados em \tests\cenarios.md
 
 ---
 
@@ -148,20 +148,6 @@ typedef enum {
 } token_t; 
 ```
 
-### Testes
-
-Para rodar o flex, compilar e gerar um executável chamado de ```e1```:
-
-```text
-make compile
-```
-
-Para testar:
-
-```text
-make test
-```
-
 ---
 
 ### Entrega
@@ -172,9 +158,8 @@ com o código fonte de sua implementação na **pasta E1-parte2**.
 Arquivos:
 - ./E1-parte2/README.md, com nomes dos membros da equipe (primeiras linhas, como comentário e orientações para compilar, executar e testar seu código.
 - ./E1-parte2/makefile, com opções 'compile' e 'test'
-- ./E1-parte2/<arquivos com código fonte>, incluindo um arquivo Flex e o arquivo token.h
-- Pasta ./E1-parte2/'tests', contendo testes I/O para os cenários indicados em \tests\cenarios.md
-
+- ./E1-parte2/<arquivos com código fonte>, incluindo um arquivo Flex, um arquivo main.c, que chama yylex() --  e o arquivo token.h. Esses arquivos são suficientes.
+- Pasta ./E1-parte2/'tests', contendo seus testes I/O para os cenários indicados em \tests\cenarios.md
 
 
 
