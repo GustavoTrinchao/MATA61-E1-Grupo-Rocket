@@ -4,8 +4,8 @@
 - Cenário 1: Expressão Padrão (Misturada)
 
 | Entrada| Saída esperada |
-| 90 * 100 / 18.0 - 48 + 77 | <token: 1, atrib: 90> |
-| | <token: 4> | 
+| 90 * 100 / 18.0 - 48 + 77 | '<token: 1, atrib: 90>' |
+| | '<token: 4>' | 
 | | <token: 1, atrib: 100> |
 | | <token: 5> |
 | | <token: 1, atrib: 18.0> |
