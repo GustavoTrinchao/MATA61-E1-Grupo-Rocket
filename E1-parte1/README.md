@@ -3,18 +3,22 @@
 Equipe: Rocket
 
 Membros:
-- Membro 1: Giovane Santana
-- Membro 2: Gustavo Trinchão
-- Membro 3: Joaquim Neto
-- Membro 4: Miguel Mota
-- Membro 5: Théo Farias
+- Membro 1: Giovane Santana (0Giovane)
+- Membro 2: Gustavo Trinchão (GustavoTrinchao)
+- Membro 3: Joaquim Neto (Joca04)
+- Membro 4: Miguel Mota (miguelmota2301)
+- Membro 5: Théo Farias (fetohiaras)
 
 ## Arquivos
 
 **lexer.py**: Analisador léxico.
+
 **test_lexer.py**: Testes unitários para o analisador.
+
 **README.md**: Informações sobre o exercício.
+
 **tests/cenariox.in**: Caso de teste.
+
 **tests/cenariox.ora**: Resultado esperado para cada caso de teste.
 
 ## Como compilar
