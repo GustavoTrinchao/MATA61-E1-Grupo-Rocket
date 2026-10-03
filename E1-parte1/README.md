@@ -25,11 +25,19 @@ Membros:
 ```python
 python3 lexer.py
 ```
+ou 
+```makefile
+make compile
+```
 Abre o prompt de entrada e expressões léxicas a serem interpretadas (enviar com Enter).
 
 ## Como testar com os arquivos teste fornecidos.
 ```python
 python3 test_lexer.py
+```
+ou 
+```makefile
+make test
 ```
 Executa os casos de testes unitários especificados no exercício no lexer implementado em lexer.py.
 
