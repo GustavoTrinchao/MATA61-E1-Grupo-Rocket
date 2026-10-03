@@ -11,7 +11,7 @@ FLOAT   {DIGIT}+"."{DIGIT}+
 
 %%
 
-[ \t]+              ;
+[ \t\r]+            ;
 \n                  {return EOL;}
 
 {FLOAT}             {return NUM;}

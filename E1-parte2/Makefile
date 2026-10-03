@@ -7,7 +7,7 @@ CFLAGS = -Wall -Wextra
 compile: e1
 
 e1: lex.yy.c main.c token.h
-	$(CC) $(CFLAGS) -o e1 lex.yy.c main.c -lfl
+	$(CC) $(CFLAGS) -o e1 lex.yy.c main.c
 
 lex.yy.c: e1.l token.h
 	$(FLEX) e1.l
@@ -21,8 +21,8 @@ test: compile
 		orafile="tests/$$base.ora"; \
 		echo -n "Teste $$base: "; \
 		if [ -f "$$orafile" ]; then \
-			output=$$(cat "$$infile" | ./e1); \
-			expected=$$(cat "$$orafile"); \
+			output=$$(cat "$$infile" | ./e1 | tr -d '\r'); \
+			expected=$$(tr -d '\r' < "$$orafile"); \
 			if [ "$$output" = "$$expected" ]; then \
 				echo "Sucesso"; \
 				passed=$$((passed + 1)); \
