@@ -9,19 +9,26 @@ class TestYylex(unittest.TestCase):
     def test_integer(self):
         lx = AnalisadorLexico("42")
         self.assertEqual(lx.yylex(), (NUM, "42"))
+        self.assertEqual(lx.yytext, "42")
         self.assertEqual(lx.yylex(), (EOL, None))
+        self.assertEqual(lx.yytext, "")
 
     def test_real(self):
         lx = AnalisadorLexico("18.0")
         self.assertEqual(lx.yylex(), (NUM, "18.0"))
+        self.assertEqual(lx.yytext, "18.0")
         self.assertEqual(lx.yylex(), (EOL, None))
 
     def test_operators(self):
         lx = AnalisadorLexico("+ - * /")
         self.assertEqual(lx.yylex(), (PLUS, None))
+        self.assertEqual(lx.yytext, "+")
         self.assertEqual(lx.yylex(), (MINUS, None))
+        self.assertEqual(lx.yytext, "-")
         self.assertEqual(lx.yylex(), (TIMES, None))
+        self.assertEqual(lx.yytext, "*")
         self.assertEqual(lx.yylex(), (DIV, None))
+        self.assertEqual(lx.yytext, "/")
         self.assertEqual(lx.yylex(), (EOL, None))
 
     def test_full_expression(self):
@@ -31,39 +38,53 @@ class TestYylex(unittest.TestCase):
             (NUM, "18.0"), (MINUS, None), (NUM, "48"), (PLUS, None),
             (NUM, "77"), (EOL, None),
         ]
-        for exp in expected:
+        expected_yytext = [
+            "90", "*", "100", "/", "18.0", "-", "48", "+", "77", "",
+        ]
+        for exp, exp_text in zip(expected, expected_yytext):
             self.assertEqual(lx.yylex(), exp)
+            self.assertEqual(lx.yytext, exp_text)
 
     def test_invalid_char_is_reported_and_lexing_continues(self):
         lx = AnalisadorLexico(".0")
         token, attrib = lx.yylex()
         self.assertEqual(token, ERROR)
-        self.assertEqual(lx.erro_de_caractere, ".")
+        self.assertEqual(lx.yytext, ".")
+        self.assertEqual(lx.yytext, ".")
         # apos o erro, o lexico continua e reconhece o restante
         self.assertEqual(lx.yylex(), (NUM, "0"))
+        self.assertEqual(lx.yytext, "0")
         self.assertEqual(lx.yylex(), (EOL, None))
 
     def test_invalid_char_letter(self):
         lx = AnalisadorLexico("3 & 4")
         self.assertEqual(lx.yylex(), (NUM, "3"))
+        self.assertEqual(lx.yytext, "3")
         token, _ = lx.yylex()
         self.assertEqual(token, ERROR)
-        self.assertEqual(lx.erro_de_caractere, "&")
+        self.assertEqual(lx.yytext, "&")
+        self.assertEqual(lx.yytext, "&")
         self.assertEqual(lx.yylex(), (NUM, "4"))
+        self.assertEqual(lx.yytext, "4")
 
     def test_empty_line(self):
         lx = AnalisadorLexico("")
         self.assertEqual(lx.yylex(), (EOL, None))
+        self.assertEqual(lx.yytext, "")
 
     def test_whitespace_only(self):
         lx = AnalisadorLexico("   \t  ")
         self.assertEqual(lx.yylex(), (EOL, None))
+        self.assertEqual(lx.yytext, "")
 
     def test_multiple_spaces_between_tokens(self):
         lx = AnalisadorLexico("  10   +   20  ")
         self.assertEqual(lx.yylex(), (NUM, "10"))
+        self.assertEqual(lx.yytext, "10")
         self.assertEqual(lx.yylex(), (PLUS, None))
+        self.assertEqual(lx.yytext, "+")
         self.assertEqual(lx.yylex(), (NUM, "20"))
+        self.assertEqual(lx.yytext, "20")
         self.assertEqual(lx.yylex(), (EOL, None))
 
 

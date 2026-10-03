@@ -21,7 +21,6 @@ class AnalisadorLexico:
     def set_entrada(self, linha_tratada):
         self.linha_tratada = linha_tratada
         self.pos = 0
-        self.erro_de_caractere = None
         self.yytext = ""
 
     def get_caractere(self):
@@ -32,6 +31,7 @@ class AnalisadorLexico:
             self.pos += 1
 
         if self.pos >= len(self.linha_tratada):
+            self.yytext = ""
             return (EOL, None)
 
         caractere = self.linha_tratada[self.pos]
@@ -64,7 +64,7 @@ class AnalisadorLexico:
             self.yytext = "/"
             return (DIV, None)
 
-        self.erro_de_caractere = caractere
+        self.yytext = caractere
         self.pos += 1
         return (ERROR, None)
 
@@ -81,7 +81,7 @@ def main():
             if token == EOL:
                 pass #nop
             elif token == ERROR:
-                print(f"lexical error, char {al.erro_de_caractere}")
+                print(f"lexical error, char {al.yytext}")
             elif token == NUM:
                 print(f"<token: {token}, atrib: {attrib}>")
             else:
