@@ -22,6 +22,7 @@ class AnalisadorLexico:
         self.linha_tratada = linha_tratada
         self.pos = 0
         self.erro_de_caractere = None
+        self.yytext = ""
 
     def get_caractere(self):
         return self.linha_tratada[self.pos] if self.pos < len(self.linha_tratada) else ""
@@ -43,48 +44,48 @@ class AnalisadorLexico:
                 self.pos += 1
                 while self.get_caractere().isdigit():
                     self.pos += 1
-            return (NUM, self.linha_tratada[start:self.pos])
+            self.yytext = self.linha_tratada[start:self.pos]
+            return (NUM, self.yytext)
 
         if caractere == "+":
             self.pos += 1
+            self.yytext = "+"
             return (PLUS, None)
         if caractere == "-":
             self.pos += 1
+            self.yytext = "-"
             return (MINUS, None)
         if caractere == "*":
             self.pos += 1
+            self.yytext = "*"
             return (TIMES, None)
         if caractere == "/":
             self.pos += 1
+            self.yytext = "/"
             return (DIV, None)
 
         self.erro_de_caractere = caractere
         self.pos += 1
         return (ERROR, None)
 
-    def executar(self):
-        for linha in sys.stdin:
-            linha_tratada = linha.rstrip("\n")
-            self.set_entrada(linha_tratada)
-
-            token = 'inicializar'
-            while token != EOL:
-                token, attrib = self.yylex()
-
-                if token == EOL:
-                    pass #nop
-                elif token == ERROR:
-                    print(f"lexical error, char {self.erro_de_caractere}")
-                elif token == NUM:
-                    print(f"<token: {token}, atrib: {attrib}>")
-                else:
-                    print(f"<token: {token}>")
-
-
 def main():
     al = AnalisadorLexico()
-    al.executar()
+    for linha in sys.stdin:
+        linha_tratada = linha.rstrip("\n")
+        al.set_entrada(linha_tratada)
 
+        token = 'inicializar'
+        while token != EOL:
+            token, attrib = al.yylex()
+
+            if token == EOL:
+                pass #nop
+            elif token == ERROR:
+                print(f"lexical error, char {al.erro_de_caractere}")
+            elif token == NUM:
+                print(f"<token: {token}, atrib: {attrib}>")
+            else:
+                print(f"<token: {token}>")
 
 if __name__ == "__main__":
     main()
