@@ -51,7 +51,6 @@ class TestYylex(unittest.TestCase):
         self.assertEqual(token, ERROR)
         self.assertEqual(lx.yytext, ".")
         self.assertEqual(lx.yytext, ".")
-        # apos o erro, o lexico continua e reconhece o restante
         self.assertEqual(lx.yylex(), (NUM, "0"))
         self.assertEqual(lx.yytext, "0")
         self.assertEqual(lx.yylex(), (EOL, None))
@@ -60,7 +59,7 @@ class TestYylex(unittest.TestCase):
         lx = AnalisadorLexico("3 & 4")
         self.assertEqual(lx.yylex(), (NUM, "3"))
         self.assertEqual(lx.yytext, "3")
-        token, _ = lx.yylex()
+        token, attrib = lx.yylex()
         self.assertEqual(token, ERROR)
         self.assertEqual(lx.yytext, "&")
         self.assertEqual(lx.yytext, "&")
